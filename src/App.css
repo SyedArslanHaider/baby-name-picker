@@ -1,3 +1,24 @@
+.boy {
+  background-color: blue;
+  /* Background color for boys */
+  color: white;
+  /* Text color */
+  padding: 5px 10px;
+  border-radius: 5px;
+  display: inline-block;
+  margin: 5px;
+}
+
+.girl {
+  background-color: pink;
+  /* Background color for girls */
+  color: black;
+  /* Text color */
+  padding: 5px 10px;
+  border-radius: 5px;
+  display: inline-block;
+  margin: 5px;
+}
 #root {
   max-width: 1280px;
   margin: 0 auto;
