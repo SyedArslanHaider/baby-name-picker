@@ -1,6 +1,19 @@
 import "./App.css";
-function DisplayName(props) {
-  const filteredNames = props.people.filter((person) =>
+interface BabyName {
+  id: number;
+  name: string;
+  sex: "m" | "f";
+}
+interface DisplayNameProps {
+  people: BabyName[];
+  search: string;
+  favorite: BabyName[];
+  addToFavorite: (person: BabyName) => void;
+  removeFromFavorite: (person: BabyName) => void;
+  filter: "all" | "m" | "f";
+}
+function DisplayName(props: DisplayNameProps) {
+  const filteredNames = props.people.filter((person: BabyName) =>
     person.name.toLowerCase().includes(props.search.toLowerCase())
   );
   // const allNames = filteredNames.map((person) => ({
@@ -15,14 +28,14 @@ function DisplayName(props) {
   const sortedName = [...genderFilteredNames].sort((a, b) =>
     a.name.localeCompare(b.name)
   );
-  const getBackgroundColor = (sex) => {
+  const getBackgroundColor = (sex: "m" | "f") => {
     return sex === "m" ? "lightblue" : "pink"; // Different colors for different genders
   };
 
-  const isFavorite = (person) => {
+  const isFavorite = (person: BabyName) => {
     return props.favorite.some((fav) => fav.name === person.name);
   };
-  const handelClick = (person) => {
+  const handelClick = (person: BabyName) => {
     if (isFavorite(person)) {
       props.removeFromFavorite(person);
     } else {
@@ -35,7 +48,7 @@ function DisplayName(props) {
         <p
           key={index}
           style={{ backgroundColor: getBackgroundColor(person.sex) }}
-          className={person.gender === "m" ? "boy" : "girl"}
+          className={person.sex === "m" ? "boy" : "girl"}
           onClick={() => handelClick(person)}
         >
           {person.name}

@@ -1,4 +1,10 @@
-function SearchBar(props) {
+interface SearchBarProps {
+  search: string;
+  setSearch: (value: string) => void;
+  filter: "all" | "m" | "f";
+  setFilter: (value: "all" | "m" | "f") => void;
+}
+function SearchBar(props: SearchBarProps) {
   return (
     <div className="search-container">
       <input
@@ -34,5 +40,4 @@ function SearchBar(props) {
     </div>
   );
 }
-
 export default SearchBar;

@@ -3,20 +3,26 @@ import DisplayName from "./DisplayNames";
 import babyArray from "./babyNameArray.json";
 import SearchBar from "./SearchBar";
 import { useState } from "react";
+// Define TypeScript type for a baby name
+interface BabyName {
+  id: number;
+  name: string;
+  sex: "m" | "f"; // Only "m" or "f"
+}
 function App() {
-  const [search, SetSearch] = useState("");
-  const [favorite, setFavorite] = useState([]);
-  const [filter, setFilter] = useState("all");
-
-  const addToFavorite = (person) => {
+  const [search, SetSearch] = useState<string>("");
+  const [favorite, setFavorite] = useState<BabyName[]>([]);
+  const [filter, setFilter] = useState<"all" | "m" | "f">("all");
+  const babyArrayy: BabyName[] = babyArray as BabyName[];
+  const addToFavorite = (person: BabyName) => {
     if (!favorite.includes(person)) {
       setFavorite([...favorite, person]);
     }
   };
-  const removeFromFavorite = (person) => {
+  const removeFromFavorite = (person: BabyName) => {
     setFavorite(favorite.filter((fav) => fav !== person));
   };
-  const getBackgroundColor = (sex) => {
+  const getBackgroundColor = (sex: "m" | "f") => {
     return sex === "m" ? "lightblue" : "pink"; // Different colors for different genders
   };
   return (
@@ -30,7 +36,7 @@ function App() {
           setFilter={setFilter}
         />
         <DisplayName
-          people={babyArray}
+          people={babyArrayy}
           search={search}
           addToFavorite={addToFavorite}
           favorite={favorite}
@@ -49,7 +55,7 @@ function App() {
               <span
                 key={index}
                 style={{ backgroundColor: getBackgroundColor(person.sex) }}
-                className={person.gender === "m" ? "boy" : "girl"}
+                className={person.sex === "m" ? "boy" : "girl"}
               >
                 {person.name}
               </span>
