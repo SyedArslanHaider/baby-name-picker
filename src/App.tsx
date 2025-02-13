@@ -2,7 +2,7 @@ import "./App.css";
 import DisplayName from "./DisplayNames";
 import babyArray from "./babyNameArray.json";
 import SearchBar from "./SearchBar";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 // Define TypeScript type for a baby name
 interface BabyName {
   id: number;
@@ -13,7 +13,11 @@ function App() {
   const [search, SetSearch] = useState<string>("");
   const [favorite, setFavorite] = useState<BabyName[]>([]);
   const [filter, setFilter] = useState<"all" | "m" | "f">("all");
+  const [darkMode, setDarkMode] = useState(false);
   const babyArrayy: BabyName[] = babyArray as BabyName[];
+  useEffect(() => {
+    document.body.className = darkMode ? "dark-theme" : "light-theme";
+  }, [darkMode]);
   const addToFavorite = (person: BabyName) => {
     if (!favorite.includes(person)) {
       setFavorite([...favorite, person]);
@@ -28,6 +32,9 @@ function App() {
   return (
     <>
       <div className="app-container">
+        <button onClick={() => setDarkMode(!darkMode)}>
+          {darkMode ? "Light Mode" : "Dark Mode"}
+        </button>
         <h2>Sorted Names List</h2>
         <SearchBar
           search={search}
